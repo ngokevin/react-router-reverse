@@ -1,6 +1,6 @@
 {
   "name": "react-router-reverse",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Components and helpers for route reversal in react-router@1.x.x.",
   "main": "index.js",
   "dependencies": {
@@ -9,19 +9,14 @@
   },
   "devDependencies": {
     "babel": "^5.4.7",
-    "babel-core": "^5.8.22",
-    "babel-loader": "^5.3.2",
     "babel-runtime": "^5.8.20",
     "jsdom": "^3.1.2",
-    "karma": "^0.13.9",
-    "karma-browserify": "^4.3.0",
-    "karma-firefox-launcher": "^0.1.6",
-    "karma-mocha": "^0.2.0",
-    "mocha": "^2.2.5"
+    "mocha": "^2.2.5",
+    "mocha-jsdom": "^1.0.0"
   },
   "scripts": {
     "pretest": "babel --stage 0 test.es6 -o test.js && babel --stage 0 index.es6 -o index.js",
-    "test": "karma start",
+    "test": "mocha test.js",
     "prepublish": "babel --stage 0 index.es6 -o index.js"
   },
   "repository": {

@@ -16,7 +16,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'd
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
-function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
+function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var _react = require('react');
 
@@ -48,7 +48,11 @@ var ReverseLink = (function (_React$Component) {
     value: function render() {
       var path = reverse(this.context.router.routes, this.props.to, this.props.params);
 
-      return _react2['default'].createElement(_reactRouter.Link, _extends({}, this.props, { to: path }));
+      return _react2['default'].createElement(
+        Provider,
+        { router: this.context.router },
+        _react2['default'].createElement(_reactRouter.Link, _extends({}, this.props, { to: path }))
+      );
     }
   }], [{
     key: 'contextTypes',
@@ -122,12 +126,12 @@ var Provider = (function (_React$Component2) {
   _createClass(Provider, [{
     key: 'render',
     value: function render() {
-      return this.props.children();
+      return this.props.children;
     }
   }], [{
     key: 'propTypes',
     value: {
-      children: _react2['default'].PropTypes.func.isRequired,
+      children: _react2['default'].PropTypes.any,
       router: _react2['default'].PropTypes.object.isRequired
     },
     enumerable: true

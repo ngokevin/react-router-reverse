@@ -8,23 +8,34 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'd
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
-function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
+function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var _assert = require('assert');
 
 var _assert2 = _interopRequireDefault(_assert);
 
-var _reactAddons = require('react/addons');
+var _jsdom2 = require('jsdom');
 
-var _reactAddons2 = _interopRequireDefault(_reactAddons);
+var _jsdom3 = _interopRequireDefault(_jsdom2);
+
+var _mochaJsdom = require('mocha-jsdom');
+
+var _mochaJsdom2 = _interopRequireDefault(_mochaJsdom);
 
 var _reactRouter = require('react-router');
 
-var _reactRouterLibBrowserHistory = require('react-router/lib/BrowserHistory');
-
 var _index = require('./index');
 
+global.document = _jsdom3['default'].jsdom('<html><body></body></html>');
+global.window = document.parentWindow;
+global.navigator = window.navigator;
+var jsdom = _mochaJsdom2['default'].bind(undefined, { skipWindowCheck: true });
+
 describe('ReverseLink', function () {
+  jsdom();
+  var React = require('react/addons');
+  var history = require('react-router/lib/MemoryHistory');
+
   var TestComponent = (function (_React$Component) {
     _inherits(TestComponent, _React$Component);
 
@@ -37,34 +48,44 @@ describe('ReverseLink', function () {
     _createClass(TestComponent, [{
       key: 'render',
       value: function render() {
-        return _reactAddons2['default'].createElement(
+        return React.createElement(
           'nav',
           null,
-          _reactAddons2['default'].createElement(
+          React.createElement(
             _index.ReverseLink,
             { to: 'landing' },
             'Home'
           ),
-          _reactAddons2['default'].createElement(
+          React.createElement(
             _index.ReverseLink,
             { to: 'detail', params: { id: 5 } },
             'Detail'
+          ),
+          React.createElement(
+            _index.ReverseLink,
+            { to: 'detail-edit', params: { id: 10, user: 'kev' } },
+            'Edit Post'
           )
         );
       }
     }]);
 
     return TestComponent;
-  })(_reactAddons2['default'].Component);
+  })(React.Component);
 
-  var router = _reactAddons2['default'].createElement(
+  var router = React.createElement(
     _reactRouter.Router,
-    { history: _reactRouterLibBrowserHistory.history },
-    _reactAddons2['default'].createElement(
+    { history: new history('/') },
+    React.createElement(
       _reactRouter.Route,
       { name: 'app', component: TestComponent },
-      _reactAddons2['default'].createElement(_reactRouter.Route, { name: 'landing', path: 'context.html', component: TestComponent }),
-      _reactAddons2['default'].createElement(_reactRouter.Route, { name: 'detail', path: '/detail/:id', component: TestComponent })
+      React.createElement(_reactRouter.Route, { name: 'landing', path: '/', component: TestComponent }),
+      React.createElement(
+        _reactRouter.Route,
+        { name: 'detail', path: '/detail/:id', component: TestComponent },
+        React.createElement(_reactRouter.Route, { name: 'detail-edit', path: '/:user/edit',
+          component: TestComponent })
+      )
     )
   );
 
@@ -73,15 +94,23 @@ describe('ReverseLink', function () {
     div = document.createElement('div');
   });
   afterEach(function () {
-    _reactAddons2['default'].unmountComponentAtNode(div);
+    React.unmountComponentAtNode(div);
   });
 
   it('reverses', function (done) {
-    _reactAddons2['default'].render(router, div, function () {
-      console.log(div.innerHTML);
+    React.render(router, div, function () {
+      var homeLink = div.querySelectorAll('a')[0];
+      _assert2['default'].equal(homeLink.getAttribute('href'), '/');
+      _assert2['default'].equal(homeLink.innerHTML, 'Home');
+
+      var detailLink = div.querySelectorAll('a')[1];
+      _assert2['default'].equal(detailLink.getAttribute('href'), '/detail/5');
+      _assert2['default'].equal(detailLink.innerHTML, 'Detail');
+
+      var editLink = div.querySelectorAll('a')[2];
+      _assert2['default'].equal(editLink.getAttribute('href'), '/detail/10/kev/edit');
+      _assert2['default'].equal(editLink.innerHTML, 'Edit Post');
       done();
     });
   });
 });
-
-describe('reverse', function () {});

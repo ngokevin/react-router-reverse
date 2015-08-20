@@ -23,7 +23,9 @@ export class ReverseLink extends React.Component {
     const path = reverse(this.context.router.routes, this.props.to,
                          this.props.params)
 
-    return <Link {...this.props} to={path}/>
+    return <Provider router={this.context.router}>
+      <Link {...this.props} to={path}/>
+    </Provider>
   }
 }
 
@@ -53,7 +55,7 @@ export function reverse(routes, name, params, parentPath='') {
 
 class Provider extends React.Component {
   static propTypes = {
-    children: React.PropTypes.func.isRequired,
+    children: React.PropTypes.any,
     router: React.PropTypes.object.isRequired
   };
   static childContextTypes = {
@@ -65,6 +67,6 @@ class Provider extends React.Component {
     };
   }
   render() {
-    return this.props.children();
+    return this.props.children;
   }
 }
