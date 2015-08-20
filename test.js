@@ -24,7 +24,7 @@ var _mochaJsdom2 = _interopRequireDefault(_mochaJsdom);
 
 var _reactRouter = require('react-router');
 
-var _index = require('./index');
+var _libIndex = require('./lib/index');
 
 global.document = _jsdom3['default'].jsdom('<html><body></body></html>');
 global.window = document.parentWindow;
@@ -52,17 +52,17 @@ describe('ReverseLink', function () {
           'nav',
           null,
           React.createElement(
-            _index.ReverseLink,
+            _libIndex.ReverseLink,
             { to: 'landing' },
             'Home'
           ),
           React.createElement(
-            _index.ReverseLink,
+            _libIndex.ReverseLink,
             { to: 'detail', params: { id: 5 } },
             'Detail'
           ),
           React.createElement(
-            _index.ReverseLink,
+            _libIndex.ReverseLink,
             { to: 'detail-edit', params: { id: 10, user: 'kev' } },
             'Edit Post'
           )
@@ -120,8 +120,31 @@ describe('ReverseLink nested context', function () {
   var React = require('react/addons');
   var history = require('react-router/lib/MemoryHistory');
 
-  var Header = (function (_React$Component2) {
-    _inherits(Header, _React$Component2);
+  var App = (function (_React$Component2) {
+    _inherits(App, _React$Component2);
+
+    function App() {
+      _classCallCheck(this, App);
+
+      _get(Object.getPrototypeOf(App.prototype), 'constructor', this).apply(this, arguments);
+    }
+
+    _createClass(App, [{
+      key: 'render',
+      value: function render() {
+        return React.createElement(
+          'div',
+          null,
+          this.props.children
+        );
+      }
+    }]);
+
+    return App;
+  })(React.Component);
+
+  var Header = (function (_React$Component3) {
+    _inherits(Header, _React$Component3);
 
     function Header() {
       _classCallCheck(this, Header);
@@ -142,7 +165,7 @@ describe('ReverseLink nested context', function () {
               'li',
               null,
               React.createElement(
-                _index.ReverseLink,
+                _libIndex.ReverseLink,
                 { to: 'landing' },
                 'Home'
               )
@@ -151,7 +174,7 @@ describe('ReverseLink nested context', function () {
               'li',
               null,
               React.createElement(
-                _index.ReverseLink,
+                _libIndex.ReverseLink,
                 { to: 'detail' },
                 'Detail'
               )
@@ -164,8 +187,8 @@ describe('ReverseLink nested context', function () {
     return Header;
   })(React.Component);
 
-  var TestComponent = (function (_React$Component3) {
-    _inherits(TestComponent, _React$Component3);
+  var TestComponent = (function (_React$Component4) {
+    _inherits(TestComponent, _React$Component4);
 
     function TestComponent() {
       _classCallCheck(this, TestComponent);
@@ -192,7 +215,7 @@ describe('ReverseLink nested context', function () {
     { history: new history('/') },
     React.createElement(
       _reactRouter.Route,
-      { name: 'app', component: TestComponent },
+      { name: 'app', component: App },
       React.createElement(_reactRouter.Route, { name: 'landing', path: '/', component: TestComponent }),
       React.createElement(_reactRouter.Route, { name: 'detail', path: '/detail', component: TestComponent })
     )

@@ -1,23 +1,27 @@
 {
   "name": "react-router-reverse",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Components and helpers for route reversal in react-router@1.x.x.",
-  "main": "index.js",
-  "dependencies": {
-    "react": "*",
-    "react-router": "^1.0.0-beta3"
-  },
+  "main": "./lib/index.js",
   "devDependencies": {
     "babel": "^5.4.7",
     "babel-runtime": "^5.8.20",
     "jsdom": "^3.1.2",
     "mocha": "^2.2.5",
-    "mocha-jsdom": "^1.0.0"
+    "mocha-jsdom": "^1.0.0",
+    "react": "^0.13.3",
+    "react-router": "^1.0.0-beta3",
+    "webpack": "^1.11.0"
+  },
+  "peerDependencies": {
+    "react": "^0.13.3",
+    "react-router": "^1.0.0-beta3"
   },
   "scripts": {
-    "pretest": "babel --stage 0 test.es6 -o test.js && babel --stage 0 index.es6 -o index.js",
+    "build:lib": "babel --stage 0 src --out-dir lib",
+    "pretest": "babel --stage 0 test.es6 -o test.js && npm run build:lib",
     "test": "mocha test.js",
-    "prepublish": "babel --stage 0 index.es6 -o index.js"
+    "prepublish": "npm run build:lib"
   },
   "repository": {
     "type": "git",

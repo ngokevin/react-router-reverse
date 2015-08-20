@@ -3,7 +3,7 @@ import _jsdom from 'jsdom';
 import mochaJsdom from 'mocha-jsdom';
 import {Route, Router} from 'react-router';
 
-import {reverse, ReverseLink} from './index';
+import {reverse, ReverseLink} from './lib/index';
 
 
 global.document = _jsdom.jsdom('<html><body></body></html>');
@@ -71,6 +71,14 @@ describe('ReverseLink nested context', () => {
   const React = require('react/addons');
   const history = require('react-router/lib/MemoryHistory');
 
+  class App extends React.Component {
+    render() {
+      return <div>
+        {this.props.children}
+      </div>
+    }
+  }
+
   class Header extends React.Component {
     render() {
       return <header>
@@ -91,7 +99,7 @@ describe('ReverseLink nested context', () => {
   }
 
   const router = <Router history={new history('/')}>
-    <Route name="app" component={TestComponent}>
+    <Route name="app" component={App}>
       <Route name="landing" path="/" component={TestComponent}/>
       <Route name="detail" path="/detail" component={TestComponent}/>
     </Route>
