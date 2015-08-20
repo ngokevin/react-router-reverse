@@ -3,7 +3,7 @@ react-router-reverse
 
 Components and helpers for route reversal in react-router@1.x.x.
 
-## <ReverseLink to={routeName} params={params} {...props}/>
+## \<ReverseLink to={routeName} params={params} {...props}/\>
 
 Wraps react-router's ```Link``` component to handle route reversal.
 
