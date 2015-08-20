@@ -15,8 +15,8 @@ import {ReverseLink} from 'react-router-reverse';
 class MyComponent extends React.Component {
   render() {
     <nav>
-      <li><ReverseLink to="landing"/><li>
-      <li><ReverseLink to="detail" params={{id: 5}}/></li>
+      <ReverseLink to="landing"/>Home</ReverseLink>
+      <ReverseLink to="detail" params={{id: 5}}>Detail</ReverseLink>
     </nav>
   }
 }

@@ -1,2 +1,3 @@
 *.sw[pon]
 node_modules/
+*.map

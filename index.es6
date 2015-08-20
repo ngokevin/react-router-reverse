@@ -1,18 +1,28 @@
 import React from 'react';
-import Link from 'react-router';
+import {Link} from 'react-router';
 import {formatPattern} from 'react-router/lib/URLUtils';
 
 
 export class ReverseLink extends React.Component {
   static contextTypes = {
-    router: React.PropTypes.object.isRequired
+    router: React.PropTypes.object
   };
   static propTypes = {
     to: React.PropTypes.string,
     params: React.PropTypes.object
   };
+  static childContextTypes = {
+    router: React.PropTypes.object
+  };
+  getChildContext = () => {
+    return {
+      router: this.context.router
+    };
+  }
   render() {
-    const path = reverse(router.routes, this.props.to, this.props.params)
+    const path = reverse(this.context.router.routes, this.props.to,
+                         this.props.params)
+
     return <Link {...this.props} to={path}/>
   }
 }
@@ -39,3 +49,22 @@ export function reverse(routes, name, params, parentPath='') {
     console.error(`No reverse match for name '${name}'`);
   }
 };
+
+
+class Provider extends React.Component {
+  static propTypes = {
+    children: React.PropTypes.func.isRequired,
+    router: React.PropTypes.object.isRequired
+  };
+  static childContextTypes = {
+    router: React.PropTypes.object.isRequired
+  };
+  getChildContext = () => {
+    return {
+      router: this.props.router
+    };
+  }
+  render() {
+    return this.props.children();
+  }
+}

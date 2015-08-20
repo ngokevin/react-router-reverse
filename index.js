@@ -16,7 +16,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'd
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
-function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
 
 var _react = require('react');
 
@@ -24,29 +24,36 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouter = require('react-router');
 
-var _reactRouter2 = _interopRequireDefault(_reactRouter);
-
 var _reactRouterLibURLUtils = require('react-router/lib/URLUtils');
 
 var ReverseLink = (function (_React$Component) {
   _inherits(ReverseLink, _React$Component);
 
   function ReverseLink() {
+    var _this = this;
+
     _classCallCheck(this, ReverseLink);
 
     _get(Object.getPrototypeOf(ReverseLink.prototype), 'constructor', this).apply(this, arguments);
+
+    this.getChildContext = function () {
+      return {
+        router: _this.context.router
+      };
+    };
   }
 
   _createClass(ReverseLink, [{
     key: 'render',
     value: function render() {
-      var path = reverse(router.routes, this.props.to, this.props.params);
-      return _react2['default'].createElement(_reactRouter2['default'], _extends({}, this.props, { to: path }));
+      var path = reverse(this.context.router.routes, this.props.to, this.props.params);
+
+      return _react2['default'].createElement(_reactRouter.Link, _extends({}, this.props, { to: path }));
     }
   }], [{
     key: 'contextTypes',
     value: {
-      router: _react2['default'].PropTypes.object.isRequired
+      router: _react2['default'].PropTypes.object
     },
     enumerable: true
   }, {
@@ -54,6 +61,12 @@ var ReverseLink = (function (_React$Component) {
     value: {
       to: _react2['default'].PropTypes.string,
       params: _react2['default'].PropTypes.object
+    },
+    enumerable: true
+  }, {
+    key: 'childContextTypes',
+    value: {
+      router: _react2['default'].PropTypes.object
     },
     enumerable: true
   }]);
@@ -88,3 +101,43 @@ function reverse(routes, name, params) {
 }
 
 ;
+
+var Provider = (function (_React$Component2) {
+  _inherits(Provider, _React$Component2);
+
+  function Provider() {
+    var _this2 = this;
+
+    _classCallCheck(this, Provider);
+
+    _get(Object.getPrototypeOf(Provider.prototype), 'constructor', this).apply(this, arguments);
+
+    this.getChildContext = function () {
+      return {
+        router: _this2.props.router
+      };
+    };
+  }
+
+  _createClass(Provider, [{
+    key: 'render',
+    value: function render() {
+      return this.props.children();
+    }
+  }], [{
+    key: 'propTypes',
+    value: {
+      children: _react2['default'].PropTypes.func.isRequired,
+      router: _react2['default'].PropTypes.object.isRequired
+    },
+    enumerable: true
+  }, {
+    key: 'childContextTypes',
+    value: {
+      router: _react2['default'].PropTypes.object.isRequired
+    },
+    enumerable: true
+  }]);
+
+  return Provider;
+})(_react2['default'].Component);
