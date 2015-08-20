@@ -44,3 +44,8 @@ class MyComponent extends React.Component {
   }
 }
 ```
+
+## Contributors
+
+- [maslianok](https://github.com/maslianok) for originally writing the reverse
+  utility.
