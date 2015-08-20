@@ -64,3 +64,53 @@ describe('ReverseLink', () => {
     });
   });
 });
+
+
+describe('ReverseLink nested context', () => {
+  jsdom();
+  const React = require('react/addons');
+  const history = require('react-router/lib/MemoryHistory');
+
+  class Header extends React.Component {
+    render() {
+      return <header>
+        <nav>
+          <li><ReverseLink to="landing">Home</ReverseLink></li>
+          <li><ReverseLink to="detail">Detail</ReverseLink></li>
+        </nav>
+      </header>
+    }
+  }
+
+  class TestComponent extends React.Component {
+    render() {
+      return <div>
+        <Header/>
+      </div>
+    }
+  }
+
+  const router = <Router history={new history('/')}>
+    <Route name="app" component={TestComponent}>
+      <Route name="landing" path="/" component={TestComponent}/>
+      <Route name="detail" path="/detail" component={TestComponent}/>
+    </Route>
+  </Router>
+
+  let div;
+  beforeEach(() => {
+    div = document.createElement('div');
+  });
+  afterEach(() => {
+    React.unmountComponentAtNode(div);
+  });
+
+  it('reverses', done => {
+    React.render(router, div, () => {
+      const homeLink = div.querySelectorAll('a')[0];
+      assert.equal(homeLink.getAttribute('href'), '/');
+      assert.equal(homeLink.innerHTML, 'Home');
+      done();
+    });
+  });
+});

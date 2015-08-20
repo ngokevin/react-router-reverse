@@ -114,3 +114,104 @@ describe('ReverseLink', function () {
     });
   });
 });
+
+describe('ReverseLink nested context', function () {
+  jsdom();
+  var React = require('react/addons');
+  var history = require('react-router/lib/MemoryHistory');
+
+  var Header = (function (_React$Component2) {
+    _inherits(Header, _React$Component2);
+
+    function Header() {
+      _classCallCheck(this, Header);
+
+      _get(Object.getPrototypeOf(Header.prototype), 'constructor', this).apply(this, arguments);
+    }
+
+    _createClass(Header, [{
+      key: 'render',
+      value: function render() {
+        return React.createElement(
+          'header',
+          null,
+          React.createElement(
+            'nav',
+            null,
+            React.createElement(
+              'li',
+              null,
+              React.createElement(
+                _index.ReverseLink,
+                { to: 'landing' },
+                'Home'
+              )
+            ),
+            React.createElement(
+              'li',
+              null,
+              React.createElement(
+                _index.ReverseLink,
+                { to: 'detail' },
+                'Detail'
+              )
+            )
+          )
+        );
+      }
+    }]);
+
+    return Header;
+  })(React.Component);
+
+  var TestComponent = (function (_React$Component3) {
+    _inherits(TestComponent, _React$Component3);
+
+    function TestComponent() {
+      _classCallCheck(this, TestComponent);
+
+      _get(Object.getPrototypeOf(TestComponent.prototype), 'constructor', this).apply(this, arguments);
+    }
+
+    _createClass(TestComponent, [{
+      key: 'render',
+      value: function render() {
+        return React.createElement(
+          'div',
+          null,
+          React.createElement(Header, null)
+        );
+      }
+    }]);
+
+    return TestComponent;
+  })(React.Component);
+
+  var router = React.createElement(
+    _reactRouter.Router,
+    { history: new history('/') },
+    React.createElement(
+      _reactRouter.Route,
+      { name: 'app', component: TestComponent },
+      React.createElement(_reactRouter.Route, { name: 'landing', path: '/', component: TestComponent }),
+      React.createElement(_reactRouter.Route, { name: 'detail', path: '/detail', component: TestComponent })
+    )
+  );
+
+  var div = undefined;
+  beforeEach(function () {
+    div = document.createElement('div');
+  });
+  afterEach(function () {
+    React.unmountComponentAtNode(div);
+  });
+
+  it('reverses', function (done) {
+    React.render(router, div, function () {
+      var homeLink = div.querySelectorAll('a')[0];
+      _assert2['default'].equal(homeLink.getAttribute('href'), '/');
+      _assert2['default'].equal(homeLink.innerHTML, 'Home');
+      done();
+    });
+  });
+});
