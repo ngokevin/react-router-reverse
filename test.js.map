@@ -1,0 +1,1 @@
+{"version":3,"sources":["test.es6"],"names":[],"mappings":";;;;;;sBAAmB,QAAQ;;;;AAG3B,QAAQ,CAAC,aAAa,EAAE,YAAM,EAC7B,CAAC,CAAC","file":"test.js","sourcesContent":["import assert from 'assert';\n\n\ndescribe('ReverseLink', () => {\n});\n"]}

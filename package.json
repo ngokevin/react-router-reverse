@@ -1,0 +1,38 @@
+{
+  "name": "react-router-reverse",
+  "version": "0.0.0",
+  "description": "Components and helpers for route reversal in react-router@1.x.x.",
+  "main": "index.js",
+  "dependencies": {
+    "react": "*",
+    "react-router": "^1.0.0-beta3"
+  },
+  "devDependencies": {
+    "babel": "^5.4.7",
+    "babel-runtime": "^5.8.20",
+    "mocha": "^2.2.5"
+  },
+  "scripts": {
+    "pretest": "babel --stage 0 test.es6 -o test.js && babel --stage 0 index.es6 -o index.js",
+    "test": "mocha test.js",
+    "prepublish": "babel --stage 0 index.es6 -o index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ngokevin/react-router-reverse"
+  },
+  "keywords": [
+    "react",
+    "react-router",
+    "router",
+    "reverse",
+    "route",
+    "link"
+  ],
+  "author": "Kevin Ngo <me@ngokevin.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ngokevin/react-router-reverse/issues"
+  },
+  "homepage": "https://github.com/ngokevin/react-router-reverse"
+}
