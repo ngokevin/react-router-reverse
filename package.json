@@ -1,6 +1,6 @@
 {
   "name": "react-router-reverse",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Components and helpers for route reversal in react-router@1.x.x.",
   "main": "./lib/index.js",
   "devDependencies": {
@@ -32,7 +32,8 @@
     "router",
     "reverse",
     "route",
-    "link"
+    "link",
+    "react-component"
   ],
   "author": "Kevin Ngo <me@ngokevin.com>",
   "license": "MIT",
