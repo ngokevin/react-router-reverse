@@ -7,6 +7,8 @@ Components and helpers for route reversal in react-router@1.x.x.
 
 Wraps react-router's ```Link``` component to handle route reversal.
 
+As with ```Link```, ```router``` must be part of the owner component's context.
+
 ```js
 import React from 'react';
 import {ReverseLink} from 'react-router-reverse';
