@@ -16,10 +16,12 @@ import {ReverseLink} from 'react-router-reverse';
 
 class MyComponent extends React.Component {
   render() {
-    <nav>
-      <ReverseLink to="landing"/>Home</ReverseLink>
-      <ReverseLink to="detail" params={{id: 5}}>Detail</ReverseLink>
-    </nav>
+    return (
+      <nav>
+        <ReverseLink to="landing"/>Home</ReverseLink>
+        <ReverseLink to="detail" params={{id: 5}}>Detail</ReverseLink>
+      </nav>
+    );
   }
 }
 ```
@@ -42,7 +44,9 @@ class MyComponent extends React.Component {
     this.router.transition(path);
   }
   render() {
-    <button onClick={this.transitionHome}>Go Home</button>
+    return (
+      <button onClick={this.transitionHome}>Go Home</button>
+    );
   }
 }
 ```
