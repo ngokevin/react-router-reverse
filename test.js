@@ -51,22 +51,23 @@ describe('ReverseLink', function () {
     _createClass(TestComponent, [{
       key: 'render',
       value: function render() {
+        debugger;
         return React.createElement(
           'nav',
           null,
           React.createElement(
             _libIndex.ReverseLink,
-            { to: 'landing' },
+            { to: 'landing', routes: this.props.routes },
             'Home'
           ),
           React.createElement(
             _libIndex.ReverseLink,
-            { to: 'detail', params: { id: 5 } },
+            { to: 'detail', params: { id: 5 }, routes: this.props.routes },
             'Detail'
           ),
           React.createElement(
             _libIndex.ReverseLink,
-            { to: 'detail-edit', params: { id: 10, user: 'kev' } },
+            { to: 'detail-edit', params: { id: 10, user: 'kev' }, routes: this.props.routes },
             'Edit Post'
           )
         );
@@ -119,6 +120,7 @@ describe('ReverseLink', function () {
 });
 
 describe('ReverseLink nested context', function () {
+  debugger;
   jsdom();
   var React = require('react/addons');
 
@@ -172,7 +174,7 @@ describe('ReverseLink nested context', function () {
               null,
               React.createElement(
                 _libIndex.ReverseLink,
-                { to: 'landing' },
+                { to: 'landing', routes: this.props.routes },
                 'Home'
               )
             ),
@@ -181,7 +183,7 @@ describe('ReverseLink nested context', function () {
               null,
               React.createElement(
                 _libIndex.ReverseLink,
-                { to: 'detail' },
+                { to: 'detail', routes: this.props.routes },
                 'Detail'
               )
             )
@@ -208,7 +210,7 @@ describe('ReverseLink nested context', function () {
         return React.createElement(
           'div',
           null,
-          React.createElement(Header, null)
+          React.createElement(Header, this.props)
         );
       }
     }]);

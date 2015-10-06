@@ -19,10 +19,11 @@ describe('ReverseLink', () => {
 
   class TestComponent extends React.Component {
     render() {
+      debugger;
       return <nav>
-        <ReverseLink to="landing">Home</ReverseLink>
-        <ReverseLink to="detail" params={{id: 5}}>Detail</ReverseLink>
-        <ReverseLink to="detail-edit" params={{id: 10, user: 'kev'}}>
+        <ReverseLink to="landing" routes={this.props.routes}>Home</ReverseLink>
+        <ReverseLink to="detail" params={{id: 5}} routes={this.props.routes}>Detail</ReverseLink>
+        <ReverseLink to="detail-edit" params={{id: 10, user: 'kev'}} routes={this.props.routes}>
           Edit Post
         </ReverseLink>
       </nav>
@@ -67,6 +68,7 @@ describe('ReverseLink', () => {
 
 
 describe('ReverseLink nested context', () => {
+  debugger;
   jsdom();
   const React = require('react/addons');
   const {createMemoryHistory} = require('history');
@@ -83,8 +85,8 @@ describe('ReverseLink nested context', () => {
     render() {
       return <header>
         <nav>
-          <li><ReverseLink to="landing">Home</ReverseLink></li>
-          <li><ReverseLink to="detail">Detail</ReverseLink></li>
+          <li><ReverseLink to="landing" routes={this.props.routes}>Home</ReverseLink></li>
+          <li><ReverseLink to="detail" routes={this.props.routes}>Detail</ReverseLink></li>
         </nav>
       </header>
     }
@@ -93,7 +95,7 @@ describe('ReverseLink nested context', () => {
   class TestComponent extends React.Component {
     render() {
       return <div>
-        <Header/>
+        <Header {...this.props}/>
       </div>
     }
   }
