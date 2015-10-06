@@ -6,15 +6,16 @@
   "devDependencies": {
     "babel": "^5.4.7",
     "babel-runtime": "^5.8.20",
+    "history": "^1.12.1",
     "jsdom": "^3.1.2",
     "mocha": "^2.2.5",
     "mocha-jsdom": "^1.0.0",
     "react": "^0.13.3",
-    "react-router": "^1.0.0-beta3"
+    "react-router": "^1.0.0-rc1"
   },
   "peerDependencies": {
     "react": "^0.13.3",
-    "react-router": "^1.0.0-beta3"
+    "react-router": "^1.0.0-rc1"
   },
   "scripts": {
     "build:lib": "babel --stage 0 src --out-dir lib",

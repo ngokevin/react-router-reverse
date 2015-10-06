@@ -15,7 +15,7 @@ const jsdom = mochaJsdom.bind(this, {skipWindowCheck: true});
 describe('ReverseLink', () => {
   jsdom();
   const React = require('react/addons');
-  const history = require('react-router/lib/MemoryHistory');
+  const {createMemoryHistory} = require('history');
 
   class TestComponent extends React.Component {
     render() {
@@ -29,7 +29,7 @@ describe('ReverseLink', () => {
     }
   }
 
-  const router = <Router history={new history('/')}>
+  const router = <Router history={createMemoryHistory()}>
     <Route name="app" component={TestComponent}>
       <Route name="landing" path="/" component={TestComponent}/>
       <Route name="detail" path="/detail/:id" component={TestComponent}>
@@ -69,7 +69,7 @@ describe('ReverseLink', () => {
 describe('ReverseLink nested context', () => {
   jsdom();
   const React = require('react/addons');
-  const history = require('react-router/lib/MemoryHistory');
+  const {createMemoryHistory} = require('history');
 
   class App extends React.Component {
     render() {
@@ -98,7 +98,7 @@ describe('ReverseLink nested context', () => {
     }
   }
 
-  const router = <Router history={new history('/')}>
+  const router = <Router history={createMemoryHistory()}>
     <Route name="app" component={App}>
       <Route name="landing" path="/" component={TestComponent}/>
       <Route name="detail" path="/detail" component={TestComponent}/>
