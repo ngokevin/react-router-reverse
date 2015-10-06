@@ -19,7 +19,6 @@ describe('ReverseLink', () => {
 
   class TestComponent extends React.Component {
     render() {
-      debugger;
       return <nav>
         <ReverseLink to="landing" routes={this.props.routes}>Home</ReverseLink>
         <ReverseLink to="detail" params={{id: 5}} routes={this.props.routes}>Detail</ReverseLink>
@@ -68,7 +67,6 @@ describe('ReverseLink', () => {
 
 
 describe('ReverseLink nested context', () => {
-  debugger;
   jsdom();
   const React = require('react/addons');
   const {createMemoryHistory} = require('history');

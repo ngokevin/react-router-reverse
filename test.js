@@ -51,7 +51,6 @@ describe('ReverseLink', function () {
     _createClass(TestComponent, [{
       key: 'render',
       value: function render() {
-        debugger;
         return React.createElement(
           'nav',
           null,
@@ -120,7 +119,6 @@ describe('ReverseLink', function () {
 });
 
 describe('ReverseLink nested context', function () {
-  debugger;
   jsdom();
   var React = require('react/addons');
 
