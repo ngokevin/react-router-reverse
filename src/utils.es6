@@ -1,4 +1,4 @@
-import {formatPattern} from 'react-router/lib/URLUtils';
+import {formatPattern} from 'react-router/lib/PatternUtils';
 
 
 export function reverse(routes, name, params, parentPath='') {

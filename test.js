@@ -34,7 +34,10 @@ var jsdom = _mochaJsdom2['default'].bind(undefined, { skipWindowCheck: true });
 describe('ReverseLink', function () {
   jsdom();
   var React = require('react/addons');
-  var history = require('react-router/lib/MemoryHistory');
+
+  var _require = require('history');
+
+  var createMemoryHistory = _require.createMemoryHistory;
 
   var TestComponent = (function (_React$Component) {
     _inherits(TestComponent, _React$Component);
@@ -53,17 +56,17 @@ describe('ReverseLink', function () {
           null,
           React.createElement(
             _libIndex.ReverseLink,
-            { to: 'landing' },
+            { to: 'landing', routes: this.props.routes },
             'Home'
           ),
           React.createElement(
             _libIndex.ReverseLink,
-            { to: 'detail', params: { id: 5 } },
+            { to: 'detail', params: { id: 5 }, routes: this.props.routes },
             'Detail'
           ),
           React.createElement(
             _libIndex.ReverseLink,
-            { to: 'detail-edit', params: { id: 10, user: 'kev' } },
+            { to: 'detail-edit', params: { id: 10, user: 'kev' }, routes: this.props.routes },
             'Edit Post'
           )
         );
@@ -75,7 +78,7 @@ describe('ReverseLink', function () {
 
   var router = React.createElement(
     _reactRouter.Router,
-    { history: new history('/') },
+    { history: createMemoryHistory() },
     React.createElement(
       _reactRouter.Route,
       { name: 'app', component: TestComponent },
@@ -118,7 +121,10 @@ describe('ReverseLink', function () {
 describe('ReverseLink nested context', function () {
   jsdom();
   var React = require('react/addons');
-  var history = require('react-router/lib/MemoryHistory');
+
+  var _require2 = require('history');
+
+  var createMemoryHistory = _require2.createMemoryHistory;
 
   var App = (function (_React$Component2) {
     _inherits(App, _React$Component2);
@@ -166,7 +172,7 @@ describe('ReverseLink nested context', function () {
               null,
               React.createElement(
                 _libIndex.ReverseLink,
-                { to: 'landing' },
+                { to: 'landing', routes: this.props.routes },
                 'Home'
               )
             ),
@@ -175,7 +181,7 @@ describe('ReverseLink nested context', function () {
               null,
               React.createElement(
                 _libIndex.ReverseLink,
-                { to: 'detail' },
+                { to: 'detail', routes: this.props.routes },
                 'Detail'
               )
             )
@@ -202,7 +208,7 @@ describe('ReverseLink nested context', function () {
         return React.createElement(
           'div',
           null,
-          React.createElement(Header, null)
+          React.createElement(Header, this.props)
         );
       }
     }]);
@@ -212,7 +218,7 @@ describe('ReverseLink nested context', function () {
 
   var router = React.createElement(
     _reactRouter.Router,
-    { history: new history('/') },
+    { history: createMemoryHistory() },
     React.createElement(
       _reactRouter.Route,
       { name: 'app', component: App },
