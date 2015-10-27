@@ -1,8 +1,10 @@
 import {formatPattern} from 'react-router/lib/PatternUtils';
 
 
+/**
+ * @author https://github.com/maslianok.
+ */
 export function reverse(routes, name, params, parentPath='') {
-  // Written by https://github.com/maslianok.
   for (let i = 0; i < routes.length; i++) {
     let route = routes[i];
     let currentPath = parentPath + (route.path || '/');

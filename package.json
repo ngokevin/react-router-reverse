@@ -10,12 +10,12 @@
     "jsdom": "^3.1.2",
     "mocha": "^2.2.5",
     "mocha-jsdom": "^1.0.0",
-    "react": "^0.13.3",
-    "react-router": "^1.0.0-rc1"
+    "react": "^0.14.0",
+    "react-router": "^1.0.0-rc3"
   },
   "peerDependencies": {
-    "react": "^0.13.3",
-    "react-router": "^1.0.0-rc1"
+    "react": "^0.14.0",
+    "react-router": "^1.0.0-rc3"
   },
   "scripts": {
     "build:lib": "babel --stage 0 src --out-dir lib",
