@@ -5,16 +5,20 @@ Components and helpers for route reversal in react-router@1.x.x.
 
 ## \<ReverseLink to={routeName} params={params} routes={routes} {...props}/\>
 
-Wraps react-router's ```Link``` component to handle route reversal.  As of
-```rc1```, react-router's ```routes``` must be passed into ```ReverseLink```
-as react-router no longer makes use of React context.
+Wraps react-router's ```Link``` component to handle route reversal.
+```routes``` can either be passed explicitly as props or implicitly as context.
+Since react-router@1.0.0-rc1+ stopped using context, you can still tell your
+app to pass down routes using ```childContextTypes``` and
+```getChildContext```.
+
+**With props:**
 
 ```js
 import React from 'react';
 import {ReverseLink} from 'react-router-reverse';
 
 
-class MyComponent extends React.Component {
+class MyComponentWithProps extends React.Component {
   static propTypes = {
     routes: React.PropTypes.array.isRequired
   }
@@ -28,6 +32,29 @@ class MyComponent extends React.Component {
         <ReverseLink to="detail" params={{id: 5}} routes={this.props.routes}>
           Detail
         </ReverseLink>
+      </nav>
+    );
+  }
+}
+```
+
+**With context:**
+
+```js
+import React from 'react';
+import {ReverseLink} from 'react-router-reverse';
+
+
+class MyComponentWithContext extends React.Component {
+  static contextTypes = {
+    routes: React.PropTypes.array.isRequired
+  }
+
+  render() {
+    return (
+      <nav>
+        <ReverseLink to="landing">Home</ReverseLink>
+        <ReverseLink to="detail" params={{id: 5}}>Detail</ReverseLink>
       </nav>
     );
   }
