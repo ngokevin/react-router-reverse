@@ -30,15 +30,7 @@ describe('ReverseLink', () => {
     }
   }
 
-  const router = <Router history={createMemoryHistory()}>
-    <Route name="app" component={TestComponent}>
-      <Route name="landing" path="/" component={TestComponent}/>
-      <Route name="detail" path="/detail/:id" component={TestComponent}>
-        <Route name="detail-edit" path="/:user/edit"
-               component={TestComponent}/>
-      </Route>
-    </Route>
-  </Router>
+
 
   let div;
   beforeEach(() => {
@@ -48,7 +40,19 @@ describe('ReverseLink', () => {
     ReactDOM.unmountComponentAtNode(div);
   });
 
-  it('reverses', done => {
+  it('reverses relative path', done => {
+    const router = (
+      <Router history={createMemoryHistory()}>
+        <Route name="app" component={TestComponent}>
+          <Route name="landing" path="/" component={TestComponent}/>
+          <Route name="detail" path="/detail/:id" component={TestComponent}>
+            <Route name="detail-edit" path=":user/edit"
+                   component={TestComponent}/>
+          </Route>
+        </Route>
+      </Router>
+    );
+
     ReactDOM.render(router, div, () => {
       const homeLink = div.querySelectorAll('a')[0];
       assert.equal(homeLink.getAttribute('href'), '/');
@@ -60,6 +64,35 @@ describe('ReverseLink', () => {
 
       const editLink = div.querySelectorAll('a')[2];
       assert.equal(editLink.getAttribute('href'), '/detail/10/kev/edit');
+      assert.equal(editLink.innerHTML, 'Edit Post');
+      done();
+    });
+  });
+
+  it('reverses absolute nested path', done => {
+    const router = (
+      <Router history={createMemoryHistory()}>
+        <Route name="app" component={TestComponent}>
+          <Route name="landing" path="/" component={TestComponent}/>
+          <Route name="detail" path="detail/:id" component={TestComponent}>
+            <Route name="detail-edit" path="/user/:user/edit"
+                   component={TestComponent}/>
+          </Route>
+        </Route>
+      </Router>
+    );
+
+    ReactDOM.render(router, div, () => {
+      const homeLink = div.querySelectorAll('a')[0];
+      assert.equal(homeLink.getAttribute('href'), '/');
+      assert.equal(homeLink.innerHTML, 'Home');
+
+      const detailLink = div.querySelectorAll('a')[1];
+      assert.equal(detailLink.getAttribute('href'), '/detail/5');
+      assert.equal(detailLink.innerHTML, 'Detail');
+
+      const editLink = div.querySelectorAll('a')[2];
+      assert.equal(editLink.getAttribute('href'), '/user/kev/edit');
       assert.equal(editLink.innerHTML, 'Edit Post');
       done();
     });

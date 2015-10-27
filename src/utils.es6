@@ -8,7 +8,15 @@ import urlJoin from 'url-join';
 export function reverse(routes, name, params, parentPath='') {
   for (let i = 0; i < routes.length; i++) {
     let route = routes[i];
-    let currentPath = urlJoin(parentPath, (route.path || '/'));
+
+    let currentPath;
+    if (route.path && route.path[0] === '/') {
+      // Absolute path.
+      currentPath = route.path;
+    } else {
+      // Relative path.
+      currentPath = urlJoin(parentPath, (route.path || '/'));
+    }
 
     if (name == route.name) {
       return formatPattern(currentPath, params);

@@ -80,22 +80,6 @@ describe('ReverseLink', function () {
     return TestComponent;
   })(React.Component);
 
-  var router = React.createElement(
-    _reactRouter.Router,
-    { history: createMemoryHistory() },
-    React.createElement(
-      _reactRouter.Route,
-      { name: 'app', component: TestComponent },
-      React.createElement(_reactRouter.Route, { name: 'landing', path: '/', component: TestComponent }),
-      React.createElement(
-        _reactRouter.Route,
-        { name: 'detail', path: '/detail/:id', component: TestComponent },
-        React.createElement(_reactRouter.Route, { name: 'detail-edit', path: '/:user/edit',
-          component: TestComponent })
-      )
-    )
-  );
-
   var div = undefined;
   beforeEach(function () {
     div = document.createElement('div');
@@ -104,7 +88,23 @@ describe('ReverseLink', function () {
     _reactDom2['default'].unmountComponentAtNode(div);
   });
 
-  it('reverses', function (done) {
+  it('reverses relative path', function (done) {
+    var router = React.createElement(
+      _reactRouter.Router,
+      { history: createMemoryHistory() },
+      React.createElement(
+        _reactRouter.Route,
+        { name: 'app', component: TestComponent },
+        React.createElement(_reactRouter.Route, { name: 'landing', path: '/', component: TestComponent }),
+        React.createElement(
+          _reactRouter.Route,
+          { name: 'detail', path: '/detail/:id', component: TestComponent },
+          React.createElement(_reactRouter.Route, { name: 'detail-edit', path: ':user/edit',
+            component: TestComponent })
+        )
+      )
+    );
+
     _reactDom2['default'].render(router, div, function () {
       var homeLink = div.querySelectorAll('a')[0];
       _assert2['default'].equal(homeLink.getAttribute('href'), '/');
@@ -116,6 +116,39 @@ describe('ReverseLink', function () {
 
       var editLink = div.querySelectorAll('a')[2];
       _assert2['default'].equal(editLink.getAttribute('href'), '/detail/10/kev/edit');
+      _assert2['default'].equal(editLink.innerHTML, 'Edit Post');
+      done();
+    });
+  });
+
+  it('reverses absolute nested path', function (done) {
+    var router = React.createElement(
+      _reactRouter.Router,
+      { history: createMemoryHistory() },
+      React.createElement(
+        _reactRouter.Route,
+        { name: 'app', component: TestComponent },
+        React.createElement(_reactRouter.Route, { name: 'landing', path: '/', component: TestComponent }),
+        React.createElement(
+          _reactRouter.Route,
+          { name: 'detail', path: 'detail/:id', component: TestComponent },
+          React.createElement(_reactRouter.Route, { name: 'detail-edit', path: '/user/:user/edit',
+            component: TestComponent })
+        )
+      )
+    );
+
+    _reactDom2['default'].render(router, div, function () {
+      var homeLink = div.querySelectorAll('a')[0];
+      _assert2['default'].equal(homeLink.getAttribute('href'), '/');
+      _assert2['default'].equal(homeLink.innerHTML, 'Home');
+
+      var detailLink = div.querySelectorAll('a')[1];
+      _assert2['default'].equal(detailLink.getAttribute('href'), '/detail/5');
+      _assert2['default'].equal(detailLink.innerHTML, 'Detail');
+
+      var editLink = div.querySelectorAll('a')[2];
+      _assert2['default'].equal(editLink.getAttribute('href'), '/user/kev/edit');
       _assert2['default'].equal(editLink.innerHTML, 'Edit Post');
       done();
     });
