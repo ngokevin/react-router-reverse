@@ -42,5 +42,8 @@
   "bugs": {
     "url": "https://github.com/ngokevin/react-router-reverse/issues"
   },
-  "homepage": "https://github.com/ngokevin/react-router-reverse"
+  "homepage": "https://github.com/ngokevin/react-router-reverse",
+  "dependencies": {
+    "url-join": "0.0.1"
+  }
 }

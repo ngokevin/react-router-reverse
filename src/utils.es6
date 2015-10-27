@@ -1,13 +1,14 @@
 import {formatPattern} from 'react-router/lib/PatternUtils';
+import urlJoin from 'url-join';
 
 
 /**
- * @author https://github.com/maslianok.
+ * @author Adapted from https://github.com/maslianok.
  */
 export function reverse(routes, name, params, parentPath='') {
   for (let i = 0; i < routes.length; i++) {
     let route = routes[i];
-    let currentPath = parentPath + (route.path || '/');
+    let currentPath = urlJoin(parentPath, (route.path || '/'));
 
     if (name == route.name) {
       return formatPattern(currentPath, params);
