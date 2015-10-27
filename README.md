@@ -8,8 +8,7 @@ Components and helpers for route reversal in react-router@1.x.x.
 Wraps react-router's ```Link``` component to handle route reversal.
 ```routes``` can either be passed explicitly as props or implicitly as context.
 Since react-router@1.0.0-rc1+ stopped using context, you can still tell your
-app to pass down routes using ```childContextTypes``` and
-```getChildContext```.
+app to pass down routes using ```childContextTypes``` and ```getChildContext```.
 
 **With props:**
 
