@@ -22,6 +22,10 @@ var _mochaJsdom = require('mocha-jsdom');
 
 var _mochaJsdom2 = _interopRequireDefault(_mochaJsdom);
 
+var _reactDom = require('react-dom');
+
+var _reactDom2 = _interopRequireDefault(_reactDom);
+
 var _reactRouter = require('react-router');
 
 var _libIndex = require('./lib/index');
@@ -33,7 +37,7 @@ var jsdom = _mochaJsdom2['default'].bind(undefined, { skipWindowCheck: true });
 
 describe('ReverseLink', function () {
   jsdom();
-  var React = require('react/addons');
+  var React = require('react');
 
   var _require = require('history');
 
@@ -97,11 +101,11 @@ describe('ReverseLink', function () {
     div = document.createElement('div');
   });
   afterEach(function () {
-    React.unmountComponentAtNode(div);
+    _reactDom2['default'].unmountComponentAtNode(div);
   });
 
   it('reverses', function (done) {
-    React.render(router, div, function () {
+    _reactDom2['default'].render(router, div, function () {
       var homeLink = div.querySelectorAll('a')[0];
       _assert2['default'].equal(homeLink.getAttribute('href'), '/');
       _assert2['default'].equal(homeLink.innerHTML, 'Home');
@@ -120,7 +124,7 @@ describe('ReverseLink', function () {
 
 describe('ReverseLink nested context', function () {
   jsdom();
-  var React = require('react/addons');
+  var React = require('react');
 
   var _require2 = require('history');
 
@@ -232,11 +236,11 @@ describe('ReverseLink nested context', function () {
     div = document.createElement('div');
   });
   afterEach(function () {
-    React.unmountComponentAtNode(div);
+    _reactDom2['default'].unmountComponentAtNode(div);
   });
 
   it('reverses', function (done) {
-    React.render(router, div, function () {
+    _reactDom2['default'].render(router, div, function () {
       var homeLink = div.querySelectorAll('a')[0];
       _assert2['default'].equal(homeLink.getAttribute('href'), '/');
       _assert2['default'].equal(homeLink.innerHTML, 'Home');

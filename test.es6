@@ -1,6 +1,7 @@
 import assert from 'assert';
 import _jsdom from 'jsdom';
 import mochaJsdom from 'mocha-jsdom';
+import ReactDOM from 'react-dom';
 import {Route, Router} from 'react-router';
 
 import {reverse, ReverseLink} from './lib/index';
@@ -14,7 +15,7 @@ const jsdom = mochaJsdom.bind(this, {skipWindowCheck: true});
 
 describe('ReverseLink', () => {
   jsdom();
-  const React = require('react/addons');
+  const React = require('react');
   const {createMemoryHistory} = require('history');
 
   class TestComponent extends React.Component {
@@ -44,11 +45,11 @@ describe('ReverseLink', () => {
     div = document.createElement('div');
   });
   afterEach(() => {
-    React.unmountComponentAtNode(div);
+    ReactDOM.unmountComponentAtNode(div);
   });
 
   it('reverses', done => {
-    React.render(router, div, () => {
+    ReactDOM.render(router, div, () => {
       const homeLink = div.querySelectorAll('a')[0];
       assert.equal(homeLink.getAttribute('href'), '/');
       assert.equal(homeLink.innerHTML, 'Home');
@@ -68,7 +69,7 @@ describe('ReverseLink', () => {
 
 describe('ReverseLink nested context', () => {
   jsdom();
-  const React = require('react/addons');
+  const React = require('react');
   const {createMemoryHistory} = require('history');
 
   class App extends React.Component {
@@ -110,11 +111,11 @@ describe('ReverseLink nested context', () => {
     div = document.createElement('div');
   });
   afterEach(() => {
-    React.unmountComponentAtNode(div);
+    ReactDOM.unmountComponentAtNode(div);
   });
 
   it('reverses', done => {
-    React.render(router, div, () => {
+    ReactDOM.render(router, div, () => {
       const homeLink = div.querySelectorAll('a')[0];
       assert.equal(homeLink.getAttribute('href'), '/');
       assert.equal(homeLink.innerHTML, 'Home');
