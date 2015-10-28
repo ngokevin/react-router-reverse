@@ -1,6 +1,6 @@
 {
   "name": "react-router-reverse",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Components and helpers for route reversal in react-router@1.x.x.",
   "main": "./lib/index.js",
   "devDependencies": {

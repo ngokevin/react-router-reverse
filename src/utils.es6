@@ -6,6 +6,10 @@ import urlJoin from 'url-join';
  * @author Adapted from https://github.com/maslianok.
  */
 export function reverse(routes, name, params, parentPath='') {
+  if (!routes) {
+    console.error('Routes were not provided for reverse().');
+  }
+
   for (let i = 0; i < routes.length; i++) {
     let route = routes[i];
 
